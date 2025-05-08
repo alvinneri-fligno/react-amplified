@@ -1,54 +1,77 @@
-# React + TypeScript + Vite
+# React Notes App with AWS Amplify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple notes application built with React and AWS Amplify.
 
-Currently, two official plugins are available:
+## Development Mode
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application is currently running in development mode without actual AWS services. This allows you to develop and test the UI without needing to configure AWS resources.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Install dependencies:
+   ```
+   npm install
+   ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Start the development server:
+   ```
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Open your browser at the URL shown in the terminal (typically http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Features
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- User authentication (simulated in development mode)
+- Create, read, and delete notes
+- Upload images for notes (simulated in development mode)
+
+## Deploying with AWS Amplify
+
+To deploy this application with real AWS services:
+
+1. Install the AWS Amplify CLI:
+   ```
+   npm install -g @aws-amplify/cli
+   ```
+
+2. Configure the Amplify CLI:
+   ```
+   amplify configure
+   ```
+
+3. Initialize Amplify in your project:
+   ```
+   amplify init
+   ```
+
+4. Add authentication:
+   ```
+   amplify add auth
+   ```
+
+5. Add API (GraphQL):
+   ```
+   amplify add api
+   ```
+
+6. Add storage:
+   ```
+   amplify add storage
+   ```
+
+7. Push your changes to AWS:
+   ```
+   amplify push
+   ```
+
+8. Update the code to use the real Amplify configuration.
+
+## Troubleshooting
+
+If you encounter issues with AWS Amplify:
+
+1. Make sure your AWS credentials are properly configured
+2. Check that you have the necessary permissions
+3. Verify that your Amplify configuration is correct
+4. Run `amplify status` to check the status of your Amplify project
