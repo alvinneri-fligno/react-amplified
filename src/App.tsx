@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import {
   Authenticator,
@@ -22,7 +23,7 @@ import outputs from "../amplify_outputs.json";
  */
 
 Amplify.configure(outputs);
-const client = generateClient({
+const client: any = generateClient({
   authMode: "userPool",
 });
 
@@ -36,7 +37,7 @@ export default function App() {
   async function fetchNotes() {
     const { data: notes } = await client.models.Note.list();
     await Promise.all(
-      notes.map(async (note) => {
+      notes.map(async (note: any) => {
         if (note.image) {
           const linkToStorageFile = await getUrl({
             path: ({ identityId }) => `media/${identityId}/${note.image}`,
@@ -51,10 +52,10 @@ export default function App() {
     setNotes(notes);
   }
 
-  async function createNote(event) {
+  async function createNote(event: any) {
     event.preventDefault();
-    const form = new FormData(event.target);
-    console.log(form.get("image").name);
+    const form: any = new FormData(event.target);
+    console.log(form.get("image")?.name);
 
     const { data: newNote } = await client.models.Note.create({
       name: form.get("name"),
@@ -75,14 +76,13 @@ export default function App() {
     event.target.reset();
   }
 
-  async function deleteNote({ id }) {
+  async function deleteNote({ id }: any) {
     const toBeDeletedNote = {
       id: id,
     };
 
-    const { data: deletedNote } = await client.models.Note.delete(
-      toBeDeletedNote
-    );
+    const { data: deletedNote } =
+      await client.models.Note.delete(toBeDeletedNote);
     console.log(deletedNote);
 
     fetchNotes();
@@ -145,7 +145,7 @@ export default function App() {
             gap="2rem"
             alignContent="center"
           >
-            {notes.map((note) => (
+            {notes.map((note: any) => (
               <Flex
                 key={note.id || note.name}
                 direction="column"
@@ -158,15 +158,11 @@ export default function App() {
                 className="box"
               >
                 <View>
-                  <Heading level="3">{note.name}</Heading>
+                  <Heading>{note.name}</Heading>
                 </View>
                 <Text fontStyle="italic">{note.description}</Text>
                 {note.image && (
-                  <Image
-                    src={note.image}
-                    alt={`visual aid for ${notes.name}`}
-                    style={{ width: 400 }}
-                  />
+                  <Image src={note.image} alt={`Test`} style={{ width: 400 }} />
                 )}
                 <Button
                   variation="destructive"
